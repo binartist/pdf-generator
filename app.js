@@ -14,7 +14,7 @@ http.createServer((request, response) => {
     console.error(err);
   });
 
-  
+console.log(request.url)  
   const myUrl = url.parse(request.url);
   if (request.method === 'GET' && myUrl.pathname.includes('/report/generation')) {
       const query = querystring.parse(myUrl.query);
@@ -31,10 +31,10 @@ http.createServer((request, response) => {
 });
 
 const generateReport = async (date) => {
-  const browser = await puppeteer.launch({args: [ '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',]});
-  // const browser = await puppeteer.launch({headless: true});
+  // const browser = await puppeteer.launch({args: [ '--no-sandbox',
+  //       '--disable-setuid-sandbox',
+  //       '--disable-dev-shm-usage',]});
+  const browser = await puppeteer.launch({headless: true});
   const page = await browser.newPage();
 
   await page.exposeFunction('onCustomEvent', async ({ type, detail }) => {
