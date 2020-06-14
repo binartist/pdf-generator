@@ -14,9 +14,9 @@ http.createServer((request, response) => {
     console.error(err);
   });
 
-  
+console.log(request.url)  
   const myUrl = url.parse(request.url);
-  if (request.method === 'GET' && myUrl.pathname.includes('/api/report')) {
+  if (request.method === 'GET' && myUrl.pathname.includes('/report/generation')) {
       const query = querystring.parse(myUrl.query);
       response.end(JSON.stringify(query));
 
@@ -31,15 +31,16 @@ http.createServer((request, response) => {
 });
 
 const generateReport = async (date) => {
-  const browser = await puppeteer.launch({args: [ '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',]});
-  // const browser = await puppeteer.launch({headless: true});
+  // const browser = await puppeteer.launch({args: [ '--no-sandbox',
+  //       '--disable-setuid-sandbox',
+  //       '--disable-dev-shm-usage',]});
+  const browser = await puppeteer.launch({headless: true});
   const page = await browser.newPage();
 
   await page.exposeFunction('onCustomEvent', async ({ type, detail }) => {
-    await page.pdf({ path: `report-${date}.pdf`, format: 'A4' });
-    await browser.close();
+        await page.pdf({ path: `../hkcic-web/build/report-${date}.pdf`, format: 'A4' });
+
+	  await browser.close();
     console.log(`Event fired: ${type}, detail: ${detail}`);
   });
 
@@ -49,5 +50,5 @@ const generateReport = async (date) => {
     });
   });
 
-  await page.goto(`http://localhost:8080/?date=${date}`, { waitUntil: 'networkidle2' });
+  await page.goto(`https://hkcic.creaxtive.com/report/?date=${date}`, { waitUntil: 'networkidle2' });
 };
