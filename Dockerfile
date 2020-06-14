@@ -1,6 +1,6 @@
 FROM buildkite/puppeteer:latest
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/
 
 COPY . .
 

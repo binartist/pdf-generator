@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const http = require('http');
 const querystring = require('querystring');
 const url = require('url');
-const port = 3001;
+const port = 3000;
 
 http.createServer((request, response) => {
   request.on('error', (err) => {
@@ -16,7 +16,7 @@ http.createServer((request, response) => {
 
   
   const myUrl = url.parse(request.url);
-  if (request.method === 'GET' && myUrl.pathname.includes('/api/report')) {
+  if (request.method === 'GET' && myUrl.pathname.includes('/report/generation')) {
       const query = querystring.parse(myUrl.query);
       response.end(JSON.stringify(query));
 
@@ -24,7 +24,7 @@ http.createServer((request, response) => {
     
   } else {
     // response.statusCode = 404;
-    response.end('Salute, il n\'y a rien!');
+    response.end('Salut, il n\'y a rien!');
   }
 }).listen(port, () => {
   console.log(`Server is running ${port}`);
@@ -38,7 +38,7 @@ const generateReport = async (date) => {
   const page = await browser.newPage();
 
   await page.exposeFunction('onCustomEvent', async ({ type, detail }) => {
-    await page.pdf({ path: `report-${date}.pdf`, format: 'A4' });
+    await page.pdf({ path: `/var/www/report-file/report-${date}.pdf`, format: 'A4' });
     await browser.close();
     console.log(`Event fired: ${type}, detail: ${detail}`);
   });
@@ -49,5 +49,8 @@ const generateReport = async (date) => {
     });
   });
 
-  await page.goto(`http://localhost:8080/?date=${date}`, { waitUntil: 'networkidle2' });
+  await page.goto(`http://web-server?date=${date}`, { waitUntil: 'networkidle2' }).catch(e=> {
+    console.log(e)
+  });
+  // await page.goto(`http://localhost:8080?date=${date}`, { waitUntil: 'networkidle2' });
 };
