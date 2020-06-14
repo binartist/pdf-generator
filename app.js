@@ -31,10 +31,10 @@ console.log(request.url)
 });
 
 const generateReport = async (date) => {
-  // const browser = await puppeteer.launch({args: [ '--no-sandbox',
-  //       '--disable-setuid-sandbox',
-  //       '--disable-dev-shm-usage',]});
-  const browser = await puppeteer.launch({headless: true});
+  const browser = await puppeteer.launch({args: [ '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',]});
+  // const browser = await puppeteer.launch({headless: true});
   const page = await browser.newPage();
 
   await page.exposeFunction('onCustomEvent', async ({ type, detail }) => {
