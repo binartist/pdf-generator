@@ -38,7 +38,7 @@ const generateReport = async (date) => {
   const page = await browser.newPage();
 
   await page.exposeFunction('onCustomEvent', async ({ type, detail }) => {
-    await page.pdf({ path: `/var/www/report-file/report-${date}.pdf`, format: 'A4' });
+    await page.pdf({ path: `/var/report-file/report-${date}.pdf`, format: 'A4' });
     await browser.close();
     console.log(`Event fired: ${type}, detail: ${detail}`);
   });
