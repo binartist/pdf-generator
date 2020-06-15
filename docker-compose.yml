@@ -11,16 +11,16 @@ services:
       - 8080:80
     volumes:
       - ./config:/etc/nginx/conf.d
-      - file-data:/var/www/report-file
+      - www-data:/var/www
     
   image_extraction_server:
     build: .
     container_name: image-extraction-server
     restart: always
     volumes: 
-      - ../hkcic-web/build:/var/www
-      - file-data:/var/www/report-file
+      - www-data:/var/www
+      - ../hkcic-web/build:/var/www/hkcic-web
       
 volumes: 
-  file-data:
+  www-data:
 
