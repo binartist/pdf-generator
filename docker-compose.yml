@@ -25,4 +25,6 @@ services:
       
 volumes: 
   report-data:
+    external: 
+      name: report-data
 
