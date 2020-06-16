@@ -12,7 +12,7 @@ services:
     volumes:
       - ./config:/etc/nginx/conf.d
       - report-data:/var/report-file
-      - ../hkcic-web/build:/var/hkcic-web
+      - ../hkcic-web/build:/var/hkcic-web/report
 
     
   image_extraction_server:

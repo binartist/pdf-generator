@@ -49,7 +49,7 @@ const generateReport = async (date) => {
     });
   });
 
-  await page.goto(`http://web-server?date=${date}&open_in=headless-browser`, { waitUntil: 'networkidle2' }).catch(e=> {
+  await page.goto(`http://web-server/report?date=${date}&open_in=headless-browser`, { waitUntil: 'networkidle2' }).catch(e=> {
     console.log(e)
   });
   // await page.goto(`http://localhost:8080?date=${date}`, { waitUntil: 'networkidle2' });
