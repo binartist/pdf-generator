@@ -4,7 +4,8 @@ WORKDIR /usr/src/
 
 COPY . .
 
-RUN yarn install
+RUN yarn config set registry 'https://registry.npm.taobao.org'
+RUN PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn install
 
 EXPOSE 3000
 
