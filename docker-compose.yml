@@ -1,30 +1,30 @@
 version: '3.3'
 
 services: 
-  web_server:
-    depends_on: 
-      - image_extraction_server
-    image: nginx:1.18-alpine
-    container_name: web-server
-    restart: always
-    ports: 
-      - 8080:80
-    volumes:
-      - ./config:/etc/nginx/conf.d
-      - report-data:/var/report-file
-      - ../hkcic-web/build:/var/hkcic-web/report
+  # web_server:
+  #   depends_on: 
+  #     - image_extraction_server
+  #   image: nginx:1.18-alpine
+  #   container_name: web-server
+  #   restart: always
+  #   ports: 
+  #     - 8080:80
+  #   volumes:
+  #     - ./config:/etc/nginx/conf.d
+  #     - report-data:/var/report-file
+  #     - ../hkcic-web/build:/var/hkcic-web/report
 
     
   image_extraction_server:
     build: .
     container_name: image-extraction-server
+    networks:
+      - nextapp
     restart: always
     volumes: 
-      - report-data:/var/report-file
-      # - ../hkcic-web/build:/var/hkcic-web
-      
-volumes: 
-  report-data:
-    external: 
-      name: report-data
+      - ./report-data:/var/report-file
 
+
+networks:
+  nextapp:
+    name: geoy-network
