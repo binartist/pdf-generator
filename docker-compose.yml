@@ -10,6 +10,7 @@ services:
     volumes:
       - ./config:/etc/nginx/conf.d
       - ./www:/var/www
+      - ./report-files:/var/report-files
   
   webapp:
     image: binartist/hkcic-webapp

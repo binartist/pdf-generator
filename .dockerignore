@@ -1,5 +1,6 @@
 node_modules
 .git
 www
-report-data
+report-files
 .vscode
+*.code-workspace
