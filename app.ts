@@ -24,6 +24,7 @@ type Action = {
 
 const generatePDF = async (action: Action) => {
   const browser = await puppeteer.launch({
+    timeout: 120000,
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
