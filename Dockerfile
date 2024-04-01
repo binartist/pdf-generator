@@ -15,10 +15,11 @@ RUN apk update && apk add --no-cache nmap && \
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
+# Add Chromium flags
+ENV CHROMIUM_FLAGS="--no-sandbox"
+
 COPY . .
 
-# RUN yarn config set registry 'https://registry.npm.taobao.org'
-# RUN PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn
 RUN yarn
 
 EXPOSE 3000
