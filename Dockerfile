@@ -15,9 +15,6 @@ RUN apk update && apk add --no-cache nmap && \
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
-# Add Chromium flags
-ENV CHROMIUM_FLAGS="--no-sandbox"
-
 COPY . .
 
 RUN yarn

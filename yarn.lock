@@ -877,6 +877,17 @@ puppeteer-core@22.6.1:
     devtools-protocol "0.0.1262051"
     ws "8.16.0"
 
+puppeteer-core@^22.6.1:
+  version "22.6.1"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-22.6.1.tgz#a6e7922a86fe9fdd3cdcbf73076332d8aefa1435"
+  integrity sha512-rShSd0xtyDSEJYys5nnzQnnwtrafQWg/lWCppyjZIIbYadWP8B1u0XJD/Oe+Xgw8v1hLHX0loNoA0ItRmNLnBg==
+  dependencies:
+    "@puppeteer/browsers" "2.2.0"
+    chromium-bidi "0.5.14"
+    debug "4.3.4"
+    devtools-protocol "0.0.1262051"
+    ws "8.16.0"
+
 puppeteer@*, puppeteer@^22.6.1:
   version "22.6.1"
   resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-22.6.1.tgz#070c2463d71f3a26fd07aeb8e38a8d0289345513"
