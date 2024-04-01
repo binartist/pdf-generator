@@ -36,11 +36,9 @@ const generatePDF = async (action: Action) => {
 
     await page.exposeFunction("onCustomEvent", async () => {
       console.log(`Event fired`);
-      // try {
-
-      // }
+     
       await page.pdf({
-        path: `./report-files/${action.filename}`,
+        path: `/app/report-files/${action.filename}`,
         format: "A4",
         timeout: 0,
       }).catch((e) => {
