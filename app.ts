@@ -1,26 +1,24 @@
-const express = require('express')
-const puppeteer = require("puppeteer");
-const http = require("http");
-const querystring = require("querystring");
-const url = require("url");
-const bodyParser = require('body-parser')
+import express from "express";
+import puppeteer from "puppeteer";
+import bodyParser from "body-parser";
+
 const port = 3000;
 
 const app = express();
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-app.post("/pdf/generation", (req, res)=> {
-  console.log("/report/generation ==== ", req.body)
+app.post("/pdf/generation", (req, res) => {
+  console.log("/report/generation ==== ", req.body);
 
-  res.end()
+  res.end();
 
-  generatePDF(req.body)
-})
+  generatePDF(req.body);
+});
 
 type Action = {
-  targetUrl: string
-  filename: string
-}
+  targetUrl: string;
+  filename: string;
+};
 
 const generatePDF = async (action: Action) => {
   const browser = await puppeteer.launch({
@@ -63,5 +61,5 @@ const generatePDF = async (action: Action) => {
 };
 
 app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
-})
+  console.log(`App listening on port ${port}`);
+});

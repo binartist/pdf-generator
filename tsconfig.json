@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+  },
+  "exclude": ["node_modules"]
+}
