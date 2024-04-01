@@ -36,10 +36,16 @@ const generatePDF = async (action: Action) => {
 
     await page.exposeFunction("onCustomEvent", async () => {
       console.log(`Event fired`);
+      // try {
+
+      // }
       await page.pdf({
         path: `./report-files/${action.filename}`,
         format: "A4",
+      }).catch((e) => {
+        console.log(e);
       });
+
       await browser.close();
     });
 
