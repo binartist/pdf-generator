@@ -52,6 +52,7 @@ const generatePDF = async (action: Action) => {
     await page
       .goto(`${action.targetUrl}`, {
         waitUntil: "networkidle0",
+        timeout: 0,
       })
       .catch((e) => {
         console.log(e);
