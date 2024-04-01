@@ -20,6 +20,7 @@ type Action = {
   filename: string;
 };
 
+
 const generatePDF = async (action: Action) => {
   const browser = await puppeteer.launch({
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
@@ -36,16 +37,12 @@ const generatePDF = async (action: Action) => {
 
     await page.exposeFunction("onCustomEvent", async () => {
       console.log(`Event fired`);
-     
+
       await page.pdf({
         path: `/app/report-files/${action.filename}`,
         format: "A4",
         timeout: 0,
-      }).catch((e) => {
-        console.log(e);
       });
-
-      await browser.close();
     });
 
     await page.evaluateOnNewDocument(() => {
@@ -54,14 +51,12 @@ const generatePDF = async (action: Action) => {
       });
     });
 
-    await page
-      .goto(`${action.targetUrl}`, {
-        waitUntil: "networkidle0",
-        timeout: 0,
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    await page.goto(`${action.targetUrl}`, {
+      waitUntil: "networkidle0",
+      timeout: 0,
+    });
+
+    await browser.close();
   } catch (e) {
     console.error(e);
   }
