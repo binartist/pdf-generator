@@ -14,6 +14,8 @@ RUN apk update && apk add --no-cache nmap && \
       nss
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
 
 COPY . .
 
