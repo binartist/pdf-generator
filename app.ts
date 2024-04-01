@@ -42,6 +42,7 @@ const generatePDF = async (action: Action) => {
       await page.pdf({
         path: `./report-files/${action.filename}`,
         format: "A4",
+        timeout: 0,
       }).catch((e) => {
         console.log(e);
       });
