@@ -37,7 +37,7 @@ const generatePDF = async (action: Action) => {
     await page.exposeFunction("onCustomEvent", async () => {
       console.log(`Event fired`);
       await page.pdf({
-        path: `/var/report-files/${action.filename}`,
+        path: `./report-files/${action.filename}`,
         format: "A4",
       });
       await browser.close();
