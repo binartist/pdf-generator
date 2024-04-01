@@ -28,7 +28,7 @@ const generatePDF = async (action: Action) => {
     const page = await browser.newPage();
     await exposeCustomEvent(page);
 
-    await page.goto(action.targetUrl, { waitUntil: "networkidle0" });
+    await page.goto(action.targetUrl, { waitUntil: "networkidle0", timeout: 0});
     console.log("Page navigation completed");
 
     // Handle custom event to trigger PDF generation
