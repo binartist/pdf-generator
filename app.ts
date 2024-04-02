@@ -35,19 +35,25 @@ const generatePDF = async (action: Action) => {
   try {
     const page = await browser.newPage();
 
+    page.on('console', (msg) => {
+      console.log(`[Page Console] ${msg.type().toUpperCase()}: ${msg.text()}`);
+    });
+    
+    
     await page.exposeFunction("onCustomEvent", async () => {
       console.log(`Event fired`);
-
       await page.pdf({
         path: `/app/report-files/${action.filename}`,
         format: "A4",
         timeout: 0,
       });
 
-      if (browser) {
-        await browser.close();
-        console.log("Browser closed");
-      }
+ 
+
+      // if (browser) {
+      //   await browser.close();
+      //   console.log("Browser closed");
+      // }
     });
 
     await page.evaluateOnNewDocument(() => {
