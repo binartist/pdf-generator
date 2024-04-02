@@ -20,21 +20,29 @@ type Action = {
   filename: string;
 };
 
+
 const generatePDF = async (action: Action) => {
-  let browser;
+  const browser = await puppeteer.launch({
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+    timeout: 0,
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+    ],
+  });
 
   try {
-    browser = await launchBrowser();
     const page = await browser.newPage();
-    await exposeCustomEvent(page);
 
-    await page.goto(action.targetUrl, { waitUntil: "networkidle0", timeout: 0});
-    console.log("Page navigation completed");
+    await page.exposeFunction("onCustomEvent", async () => {
+      console.log(`Event fired`);
 
-    // Handle custom event to trigger PDF generation
-    await page.on("status", async () => {
-      console.log("Custom event 'status' received");
-      await generatePDFFromPage(page, action.filename);
+      await page.pdf({
+        path: `/app/report-files/${action.filename}`,
+        format: "A4",
+        timeout: 0,
+      });
 
       if (browser) {
         await browser.close();
@@ -42,35 +50,20 @@ const generatePDF = async (action: Action) => {
       }
     });
 
+    await page.evaluateOnNewDocument(() => {
+      window.addEventListener("status", () => {
+        window["onCustomEvent"]();
+      });
+    });
+
+    await page.goto(`${action.targetUrl}`, {
+      waitUntil: "networkidle0",
+      timeout: 0,
+    });
   } catch (e) {
-    console.error("Error during PDF generation:", e);
-  } finally {
-  
+    console.error(e);
   }
 };
-
-const launchBrowser = async () => {
-  return await puppeteer.launch({
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-    timeout: 0,
-    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
-  });
-};
-
-const exposeCustomEvent = async (page) => {
-  await page.exposeFunction("onCustomEvent", async () => {
-    console.log("Custom event 'onCustomEvent' fired");
-    await page.evaluate(() => window["onCustomEvent"]());
-  });
-};
-
-const generatePDFFromPage = async (page, filename) => {
-  const pdfPath = `/app/report-files/${filename}`;
-  console.log("Generating PDF:", pdfPath);
-  await page.pdf({ path: pdfPath, format: "A4", timeout: 0 });
-  console.log("PDF generated successfully");
-};
-
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
