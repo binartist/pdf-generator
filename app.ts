@@ -24,11 +24,11 @@ const generatePDF = async (action: Action) => {
   const browser = await puppeteer.launch({
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
     timeout: 0,
-    // args: [
-    //   "--no-sandbox",
+    args: [
+      "--no-sandbox",
     //   "--disable-setuid-sandbox",
     //   "--disable-dev-shm-usage",
-    // ],
+    ],
   });
 
   try {
@@ -46,7 +46,7 @@ const generatePDF = async (action: Action) => {
         timeout: 0,
       });
 
-      await page.close();
+      // await page.close();
 
       // setTimeout(async () => {  
       //   await browser.close();
