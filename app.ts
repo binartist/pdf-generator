@@ -48,10 +48,10 @@ const generatePDF = async (action: Action) => {
 
       await page.close();
 
-      setTimeout(async () => {  
-        await browser.close();
-        console.log("Browser closed");
-      }, 1000);
+      // setTimeout(async () => {  
+      //   await browser.close();
+      //   console.log("Browser closed");
+      // }, 1000);
     });
 
     await page.evaluateOnNewDocument(() => {
