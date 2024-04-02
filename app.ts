@@ -32,17 +32,20 @@ const generatePDF = async (action: Action) => {
     console.log("Page navigation completed");
 
     // Handle custom event to trigger PDF generation
-    page.on("status", async () => {
+    await page.on("status", async () => {
       console.log("Custom event 'status' received");
       await generatePDFFromPage(page, action.filename);
+
+      if (browser) {
+        await browser.close();
+        console.log("Browser closed");
+      }
     });
+
   } catch (e) {
     console.error("Error during PDF generation:", e);
   } finally {
-    if (browser) {
-      await browser.close();
-      console.log("Browser closed");
-    }
+  
   }
 };
 
