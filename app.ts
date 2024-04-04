@@ -21,7 +21,7 @@ type Action = {
 const generatePDF = async (action: Action) => {
   const browser = await puppeteer.launch({
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-    headless: false,
+    headless: true,
     timeout: 0,
     args: [
       "--no-sandbox",
