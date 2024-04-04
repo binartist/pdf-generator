@@ -16,7 +16,7 @@
 # ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 # ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-FROM ghcr.io/puppeteer/puppeteer:22.6.2
+FROM satantime/puppeteer-node:20.9.0-bookworm:22.6.2
 
 WORKDIR /app
 
