@@ -4,3 +4,4 @@ www
 report-files
 .vscode
 *.js
+.env

@@ -2,8 +2,6 @@ import express from "express";
 import puppeteer from "puppeteer-core";
 import bodyParser from "body-parser";
 
-const port = 3000;
-
 const app = express();
 app.use(bodyParser.json());
 
@@ -23,6 +21,7 @@ type Action = {
 const generatePDF = async (action: Action) => {
   const browser = await puppeteer.launch({
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+    headless: false,
     timeout: 0,
     args: [
       "--no-sandbox",
@@ -41,12 +40,10 @@ const generatePDF = async (action: Action) => {
     await page.exposeFunction("onCustomEvent", async () => {
       console.log(`Event fired`);
       await page.pdf({
-        path: `/app/report-files/${action.filename}`,
+        path: `${process.env.FILE_BASE_PATH}/${action.filename}`,
         format: "A4",
         timeout: 0,
       });
-
-      await page.close();
 
       // setTimeout(async () => {  
       //   await browser.close();
@@ -69,6 +66,6 @@ const generatePDF = async (action: Action) => {
   }
 };
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
+app.listen(process.env.SERVICE_PORT, () => {
+  console.log(`App listening on port ${process.env.SERVICE_PORT}`);
 });
