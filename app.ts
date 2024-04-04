@@ -1,5 +1,5 @@
 import express from "express";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
 import bodyParser from "body-parser";
 
 const port = 3000;
@@ -22,12 +22,12 @@ type Action = {
 
 const generatePDF = async (action: Action) => {
   const browser = await puppeteer.launch({
-    // executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-    // timeout: 0,
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+    timeout: 0,
     args: [
       "--no-sandbox",
-    //   "--disable-setuid-sandbox",
-    //   "--disable-dev-shm-usage",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
     ],
   });
 
@@ -46,7 +46,7 @@ const generatePDF = async (action: Action) => {
         timeout: 0,
       });
 
-      // await page.close();
+      await page.close();
 
       // setTimeout(async () => {  
       //   await browser.close();
